@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Not Try, Just Do List</h1>
+
+    <form action="/addToDoForm" method="POST">
+        <input type="text" placeholder="items" name="itemFormName">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h1>To-do-list</h1>
+
+  
+    
+    <ul class="todoItems">
+      <% for(let i=0; i < items.length; i++) {%>
+          <li class="item">
+              <% if(items[i].completed === true) {%>
+                <span class='completed'><%= items[i].postItem %></span> 
+              <% }else{ %>
+                <span><%= items[i].postItem %></span>
+              <% } %>    
+              <span class='fa fa-trash'></span>
+          </li>
+      <% } %>
+      </ul>
+
+      <h2>Left to do: <%= left %></h2>
+
+      <script src='js/main.js'></script>
+</body>
+</html>
