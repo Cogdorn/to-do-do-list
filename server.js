@@ -5,29 +5,29 @@ console.log('Node is Noding')
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser')
-const port = 3000
 const MongoClient = require('mongodb').MongoClient
-//require('dotenv').config
+const PORT = process.env.PORT
+require('dotenv').config(); 
 
 
 
 
-app.listen(port, function() {
-    console.log(`Hey yo listening on ${port}`)
-  })
+
 
   
 // ========================
 // Link to Database
 // ========================
 
-const urlMongo = 'mongodb+srv://clchea07:ZOdRN8ifqb1nElIl@cluster0.qeejkip.mongodb.net/?retryWrites=true&w=majority'
+let db,
+    dbConnectionStr = process.env.DB_STRING,
+    dbName = 'dbItems'
 
-MongoClient.connect(urlMongo, { useUnifiedTopology: true })
+MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database')
     const db = client.db('To-Do-List')
-    const toDoListCollection = db.collection('dbItems')
+    const toDoListCollection = db.collection(dbName)
 
   
   
@@ -111,4 +111,8 @@ app.delete('/deleteItem', (request, response) => {
 
 
 })
-  .catch(console.error)
+
+
+app.listen(process.env.PORT || PORT, ()=>{
+  console.log(`Server running on port ${PORT}`)
+})
