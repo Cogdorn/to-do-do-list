@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const bodyParser= require('body-parser')
 const MongoClient = require('mongodb').MongoClient
-const PORT = process.env.PORT
+const PORT = 8000
 require('dotenv').config(); 
 
 
