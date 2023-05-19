@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const bodyParser= require('body-parser')
 const MongoClient = require('mongodb').MongoClient
-const PORT = 8000
+const PORT = process.env.PORT || 3000
 require('dotenv').config(); 
 const cors = require('cors')
 
@@ -117,6 +117,10 @@ app.delete('/deleteItem', (request, response) => {
 })
 
 
-app.listen(process.env.PORT || PORT, ()=>{
-  console.log(`Server running on port ${PORT}`)
+toDoListCollection.connect(err => {
+  if(err){ console.error(err); return false;}
+  // connection to mongo is successful, listen for requests
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
 })
