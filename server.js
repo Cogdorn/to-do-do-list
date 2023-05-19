@@ -5,7 +5,7 @@ console.log('Node is Noding')
 const express = require('express');
 const app = express();
 const bodyParser= require('body-parser')
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient } = require('mongodb');
 const PORT = process.env.PORT || 3000
 require('dotenv').config(); 
 const cors = require('cors')
@@ -26,11 +26,14 @@ let db,
     dbConnectionStr = process.env.DB_STRING,
     dbName = 'dbItems'
 
+
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database')
     const db = client.db('To-Do-List')
     const toDoListCollection = db.collection(dbName)
+
+
 
   
   
@@ -116,8 +119,8 @@ app.delete('/deleteItem', (request, response) => {
 
 })
 
-
-toDoListCollection.connect(err => {
+const MongoDBClient = new MongoClient(dbConnectionStr)
+MongoDBClient.connect(err => {
   if(err){ console.error(err); return false;}
   // connection to mongo is successful, listen for requests
   app.listen(PORT, () => {
